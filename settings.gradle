@@ -1,0 +1,8 @@
+rootProject.name = 'uacr-framework-development'
+
+include '2022-frc-basebot'
+include '2022-frc-compbot'
+include '2022-frc-tshirtbot'
+include 'frc-hardware'
+include 'uacr-robot-core'
+include 'uacr-robot-dashboard'

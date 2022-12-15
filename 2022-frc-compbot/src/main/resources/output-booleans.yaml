@@ -1,0 +1,27 @@
+solenoid_double:
+
+  # ------ Collector ------
+
+  opb_collector:
+    device_number_primary: 1
+    device_number_follower: 14
+
+  # ------ Elevator ------
+
+  opb_ball_guard:
+    device_number_primary: 5
+    device_number_follower: 10
+
+  # ------ Climber ------
+
+  opb_claw_top:
+    device_number_primary: 4
+    device_number_follower: 11
+
+  opb_claw_bottom:
+    device_number_primary: 2
+    device_number_follower: 13
+
+  opb_climber_deploy:
+    device_number_primary: 0
+    device_number_follower: 15

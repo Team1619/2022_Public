@@ -1,0 +1,78 @@
+// Resources on multi-project gradle builds
+// https://docs.gradle.org/current/userguide/multi_project_builds.html
+// https://docs.gradle.org/current/userguide/composite_builds.html?_ga=2.66124078.1099022363.1632259438-1421689162.1623448255#defining_composite_builds
+
+
+subprojects {
+    configurations {
+        dev
+        implementation.extendsFrom(dev)
+    }
+}
+
+project(':uacr-robot-dashboard') {
+    dependencies {
+        dev project(':uacr-robot-core')
+    }
+}
+
+project(':frc-hardware') {
+    dependencies {
+        dev project(':uacr-robot-core')
+        dev project(':uacr-robot-dashboard')
+    }
+}
+
+project(':2022-frc-basebot') {
+    dependencies {
+        dev project(':uacr-robot-core')
+        dev project(':uacr-robot-dashboard')
+        dev project(':frc-hardware')
+    }
+}
+
+project(':2022-frc-tshirtbot') {
+    dependencies {
+        dev project(':uacr-robot-core')
+        dev project(':uacr-robot-dashboard')
+        dev project(':frc-hardware')
+    }
+}
+
+project(':2022-frc-compbot'){
+    dependencies {
+        dev project(':uacr-robot-core')
+        dev project(':uacr-robot-dashboard')
+        dev project(':frc-hardware')
+    }
+}
+
+group 'org.uacr'
+
+repositories {
+    mavenCentral()
+}
+
+task _basebot_deploy {
+    dependsOn ':2022-frc-basebot:deploy'
+}
+
+task _basebot_sim {
+    dependsOn ':2022-frc-basebot:run'
+}
+
+task _tshirtbot_deploy {
+    dependsOn ':2022-frc-tshirtbot:deploy'
+}
+
+task _tshirtbot_sim {
+    dependsOn ':2022-frc-tshirtbot:run'
+}
+
+task _compbot_deploy {
+    dependsOn ':2022-frc-compbot:deploy'
+}
+
+task _compbot_sim {
+    dependsOn ':2022-frc-compbot:run'
+}

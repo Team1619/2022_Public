@@ -1,0 +1,80 @@
+#odometry_input:
+swerve_odometry_input:
+  ipv_swerve_odometry:
+    front_right_position: ipn_drivetrain_front_right_speed_position
+    front_left_position: ipn_drivetrain_front_left_speed_position
+    back_left_position: ipn_drivetrain_back_left_speed_position
+    back_right_position: ipn_drivetrain_back_right_speed_position
+    front_right_angle: ipv_drivetrain_front_right_angle
+    front_left_angle: ipv_drivetrain_front_left_angle
+    back_left_angle: ipv_drivetrain_back_left_angle
+    back_right_angle: ipv_drivetrain_back_right_angle
+    imu: ipv_pigeon
+
+rev_color_sensor_v3:
+  ipv_color_sensor:
+
+#navx:
+#  ipv_navx:
+
+pigeon:
+  ipv_pigeon:
+    device_number: 22
+    magnetometer_can_bus_update_period: 255
+    sensor_fusion_can_bus_update_period: 255
+    yaw_pitch_roll_can_bus_update_period: 10
+    gyro_can_bus_update_period: 255
+
+cancoder:
+  ipv_drivetrain_front_right_angle:
+    device_number: 26
+    read_absolute_position: true
+    magnet_offset: 158.0
+    can_bus_update_period: 178
+
+  ipv_drivetrain_front_left_angle:
+    device_number: 23
+    read_absolute_position: true
+    magnet_offset: 130.0
+    can_bus_update_period: 178
+
+  ipv_drivetrain_back_left_angle:
+    device_number: 24
+    read_absolute_position: true
+    magnet_offset: -3.0
+    can_bus_update_period: 178
+
+  ipv_drivetrain_back_right_angle:
+    device_number: 25
+    read_absolute_position: true
+    magnet_offset: 72.0
+    can_bus_update_period: 178
+
+limelight:
+  ipv_limelight_shooter:
+    host: shooter
+    degrees: true
+    pnp: pnp-main
+
+limelight_odometry:
+  ipv_limelight_odometry:
+    imu: ipv_swerve_odometry
+    limelight: ipv_limelight_shooter
+    update_time: -1
+    max_angle_change: 100.0
+    max_angle_change_frames: 0
+
+odometry_fuser:
+  ipv_fused_odometry:
+    relative_odometry_input: ipv_swerve_odometry
+    absolute_odometry_input: ipv_limelight_odometry
+    absolute_odometry_delay: 20
+    absolute_valid_time: 2000
+
+#power_distribution_panel:
+#  # module_type must be kCTRE or kRev
+#  # device_number must be 0 for kCTRE
+#  # device_number must be non-zero for kRev, usually 20.
+#  ipv_power_distribution_panel:
+#    module_type: kRev
+#    device_number: 20

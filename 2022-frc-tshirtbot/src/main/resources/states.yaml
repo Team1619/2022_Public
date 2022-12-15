@@ -1,0 +1,115 @@
+single_state:
+
+    # ------ Drivetrain ------
+
+    st_drivetrain_zero:
+        behavior: bh_drivetrain_zero
+        behavior_config:
+            timeout_time: 1000
+            zeroing_threshold: 0.2
+
+    st_drivetrain_swerve:
+        behavior: bh_drivetrain_swerve
+
+    st_drivetrain_accel_test:
+        behavior: bh_drivetrain_swerve_pure_pursuit
+        behavior_config:
+            path_name: pt_accel_test
+            target_heading: 0.0
+
+    st_drivetrain_swerve_align:
+        behavior: bh_drivetrain_swerve
+        behavior_config:
+            target_heading: 0.0
+            target_limelight: true
+
+    # ------ Climber ------
+
+    st_climber_extend:
+        behavior: bh_climber_states
+        behavior_config:
+            servo_zero_offset: 0.0
+
+    st_climber_retract:
+        behavior: bh_climber_states
+        behavior_config:
+            servo_zero_offset: 0.7
+
+    st_climber_no_ratchet:
+        behavior: bh_climber_states
+        behavior_config:
+            ratchet_engaged: false
+            winch_speed: 0.0
+            use_joystick: false
+
+    st_climber_retract_no_ratchet:
+        behavior: bh_climber_states
+        behavior_config:
+            servo_zero_offset: 0.0
+            winch_speed: -0.5
+            use_joystick: false
+
+    st_climber_stop:
+        behavior: bh_climber_states
+        behavior_config:
+            servo_zero_offset: 0.7
+
+    # ------------Paths----------
+
+    st_drivetrain_straightline:
+        behavior: bh_drivetrain_swerve_pure_pursuit
+        behavior_config:
+            path_name: pt_straightline
+
+#    st_auto_right_tarmac_to_right_ball:
+#        behavior: bh_drivetrain_swerve_pure_pursuit
+#        behavior_config:
+#            path_name: pt_right_tarmac_to_right_ball
+#
+#    st_auto_right_ball_to_mid_ball:
+#        behavior: bh_drivetrain_swerve_pure_pursuit
+#        behavior_config:
+#            path_name: pt_right_ball_to_mid_ball
+
+#
+#    st_auto_mid_ball_to_tarmac:
+#        behavior: bh_drivetrain_swerve_pure_pursuit
+#        behavior_config:
+#            path_name: pt_mid_ball_to_tarmac
+
+
+    st_auto_anywhere_leave_tarmac:
+        behavior: bh_drivetrain_swerve_pure_pursuit
+        behavior_config:
+            path_name: pt_anywhere_leave_tarmac
+
+wait_after_done_state:
+
+    wt_climber_retract_no_ratchet:
+        state: st_climber_retract_no_ratchet
+        wait_after_done_time: 200
+        timeout_time: 200
+
+    wt_climber_no_ratchet:
+        state: st_climber_no_ratchet
+        wait_after_done_time: 500
+        timeout_time: 500
+
+parallel_state:
+
+sequencer_state:
+    sq_auto_drive_straight_test:
+        sequence: [ st_drivetrain_straightline ]
+
+    sq_auto_anywhere_leave_tarmac:
+        sequence: [ st_auto_anywhere_leave_tarmac ]
+        
+    sq_auto_right_tarmac_3ball_mid_ball:
+        sequence: [
+            st_auto_right_tarmac_to_right_ball,
+            st_auto_right_ball_to_mid_ball,
+            st_auto_mid_ball_to_tarmac
+        ]
+
+    sq_climber_extend:
+        sequence: [ wt_climber_no_ratchet, wt_climber_retract_no_ratchet, st_climber_extend ]

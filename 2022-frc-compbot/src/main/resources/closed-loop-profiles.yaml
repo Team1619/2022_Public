@@ -1,0 +1,35 @@
+other:
+  pr_swerve_heading:
+    profiles:
+      imu:
+        f: 0.0
+        p: 0.008
+        i: 0.0
+        d: 0.0
+        integral_range: -1.0
+        max_integral: -1.0
+        max_output: 1.0
+      angle:
+        f: 0.0
+        p: 0.008
+        i: 0.0
+        d: 0.0
+        integral_range: -1.0
+        max_integral: -1.0
+        max_output: 1.0
+      fused_odometry:
+        f: 0.0
+        p: 0.008
+        i: 0.01
+        d: 0.0
+        integral_range: 2.0
+        max_integral: -1.0
+        max_output: 1.0
+      limelight:
+        f: 0.0
+        p: 0.013
+        i: 0.001
+        d: 0.0001
+        integral_range: 2.0
+        max_integral: -1.0
+        max_output: 1.0

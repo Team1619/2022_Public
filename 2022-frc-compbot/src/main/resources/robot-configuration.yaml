@@ -1,0 +1,346 @@
+general:
+  initial_teleop_mode: teleop_mode
+  #  initial_teleop_mode: manual_mode
+
+  states:
+
+    sequences:
+      priority_level_1: [ sq_climber_climb,
+                          sq_auto_right_6ball, sq_auto_right_5ball, sq_auto_right_5ball_bump, sq_auto_left_2ball, sq_auto_left_2ball_hide_hub, sq_auto_left_2ball_hide_hangar,
+                          sq_auto_forward_test, sq_collector_collect_retract, sq_auto_left_3ball, sq_auto_anywhere_1ball,
+                          sq_auto_left_3ball_hide_hub ]
+    parallels:
+      priority_level_1: [ pl_collect, pl_prime, pl_prime_low_goal, pl_prime_against_hub, pl_prime_launchpad, pl_shoot, pl_eject, pl_auto_eject, pl_dejam,
+                          pl_anywhere_across_line,
+                          pl_collect_prime_start_to_ball_2, pl_prime_ball_2_to_shoot_1_2, pl_collect_prime_shoot_1_2_to_ball_3, pl_collect_ball_3_to_ball_4,
+                          pl_prime_ball_5_to_shoot_4_5, pl_prime_ball_5_to_shoot_4_5_bump,
+                          pl_auto_shoot,
+                          pl_prime_r1_r2, pl_shoot_r1_r2, pl_collect_start_to_r3, pl_prime_r3_to_shoot_r3, pl_collect_prime_shoot_r3_to_r4, pl_prime_r3_r4,
+                          pl_shoot_r3_r4, pl_collect_r4_to_r5_r6, pl_prime_r5_r6_to_shoot_r5_r6, pl_prime_r5_r6, pl_shoot_r5_r6,
+                          pl_prime_ball_1_2, pl_shoot_ball_1_2, pl_prime_ball_3, pl_shoot_ball_3, pl_prime_ball_4_5, pl_shoot_ball_4_5,
+                          pl_collect_prime_start_to_ball_l2, pl_ball_l2_to_shoot_l2, pl_prime_ball_l1_l2, pl_shoot_ball_l1_l2, wt_shoot_ball_l1_l2,
+                          pl_first_prime_ball_l1_l2, wt_first_shoot_ball_l1_l2, pl_shoot_ball_l1_l2, pl_collect_prime_start_to_ball_l3,
+                          pl_first_shoot_ball_l1_l2, pl_ball_l3_to_shoot_l3, pl_prime_ball_l3, pl_shoot_ball_l3,
+                          wt_auto_shoot, wt_auto_eject,
+                          pl_auto_prime, wt_shoot_r1_r2, wt_shoot_r3_r4, wt_shoot_r5_r6, wt_shoot_ball_1_2, wt_shoot_ball_3, wt_shoot_ball_4_5, wt_shoot_ball_l3,
+                          wt_prime_start_wait, wt_prime_start_wait_anywhere, pl_prime_start_wait,
+                          pl_shoot_l2_to_rotate_o2, pl_rotate_o2_to_ball_o2, pl_retract_dump_o2_to_ball_l3, pl_retract_hangar_dump_to_ball_l3 ]
+    ss_drivetrain:
+      priority_level_3: [ st_drivetrain_zero ]
+      priority_level_2: [ ]
+      priority_level_1: [ st_drivetrain_swerve_align_odometry, st_drivetrain_swerve_align_limelight,
+                          st_drivetrain_launchpad, st_drivetrain_climb_align_zero, st_drivetrain_climb,
+                          st_right_start, st_start_to_r3, st_r3_to_shoot_r3, st_shoot_r3_to_r4, st_r4_to_r5_r6, st_r5_r6_to_shoot_r5_r6,
+                          st_start_to_ball_l2, st_ball_l2_to_shoot_l2, st_ball_o2_to_dump_o2, st_shoot_l2_to_rotate_o2 , st_rotate_o2_to_ball_o2,
+                          st_dump_o2_to_ball_l3, st_ball_o2_to_hangar_dump, st_hangar_dump_to_ball_l3,
+                          st_ball_l3_to_shoot_l3, st_start_to_ball_l3, st_ball_l3_to_shoot_l3,
+                          st_anywhere_across_line, st_start_to_ball_2, st_ball_2_to_shoot_1_2, st_shoot_1_2_to_ball_3,
+                          st_ball_3_to_ball_4, st_ball_4_to_ball_5, st_ball_5_to_shoot_4_5, st_ball_5_to_shoot_4_5_bump,
+                          st_drive_forward_test, st_left_start ]
+      default: [ st_drivetrain_swerve ]
+    ss_collector:
+      priority_level_3: [ st_collector_zero ]
+      priority_level_2: [ st_collector_eject ]
+      priority_level_1: [ st_collector_manual, st_collector_collect, st_collector_auto_eject, wt_collect ]
+      default: [ st_collector_retract ]
+    ss_elevator:
+      priority_level_3: [ st_elevator_zero ]
+      priority_level_2: [ st_elevator_dejam, st_elevator_eject ]
+      priority_level_1: [ st_elevator_manual, st_elevator_collect, st_elevator_shoot, st_elevator_stop ]
+      default: [ st_elevator_collect ]
+    ss_flywheel:
+      priority_level_3: [ st_flywheel_zero ]
+      priority_level_2: [ ]
+      priority_level_1: [ st_flywheel_manual, st_flywheel_prime, st_flywheel_prime_low_goal, st_flywheel_prime_against_hub, st_flywheel_prime_launchpad,
+                          st_flywheel_r1_r2, st_flywheel_r3_r4, st_flywheel_r5_r6,
+                          st_flywheel_ball_l1_l2, st_flywheel_ball_1_2, st_flywheel_ball_3, st_flywheel_ball_3_to_4_5, st_flywheel_ball_4_5,
+                          st_first_flywheel_ball_l1_l2, st_flywheel_ball_l3,
+                          st_flywheel_shoot, st_flywheel_idle, st_flywheel_stop ]
+      default: [ st_flywheel_idle_prime ]
+    ss_hood:
+      priority_level_3: [ st_hood_zero ]
+      priority_level_2: [ ]
+      priority_level_1: [ st_hood_manual, st_hood_prime, st_hood_prime_low_goal, st_hood_prime_against_hub, st_hood_prime_launchpad,
+                          st_hood_r1_r2, st_hood_r3_r4, st_hood_r5_r6,
+                          st_hood_ball_l1_l2, st_hood_ball_1_2, st_hood_ball_3, st_hood_ball_3_to_4_5, st_hood_ball_4_5,
+                          st_first_hood_ball_l1_l2, st_hood_ball_l3,
+                          st_hood_shoot ]
+      default: [ st_hood_idle_prime ]
+    ss_climber:
+      priority_level_3: [ st_climber_zero ]
+      priority_level_2: [ ]
+      priority_level_1: [ st_climber_manual, st_climber_deploy,
+                          st_climber_arm_step1, st_climber_arm_step2,
+                          st_climber_claw_step3, st_climber_arm_step4,
+                          st_climber_arm_step5, st_climber_claw_step6, st_climber_arm_step7,
+                          wt_climber_wait_step3, wt_climber_wait_step6 ]
+      default: [ ]
+
+  subsystems: [ ss_drivetrain, ss_collector, ss_elevator, ss_flywheel, ss_hood, ss_climber ]
+
+  input_booleans: [ ipb_elevator_hood_beam_sensor, ipb_elevator_dump_beam_sensor, ipb_elevator_top_beam_sensor, ipb_elevator_bottom_beam_sensor,
+                    ipb_driver_back, ipb_driver_start, ipb_driver_left_trigger, ipb_driver_right_trigger, ipb_driver_left_bumper, ipb_driver_right_bumper,
+                    ipb_driver_a, ipb_driver_b, ipb_driver_x, ipb_driver_y,
+                    ipb_driver_dpad_up, ipb_driver_dpad_down, ipb_driver_dpad_left, ipb_driver_dpad_right, ipb_driver_right_stick_button,
+                    ipb_operator_back, ipb_operator_start, ipb_operator_left_trigger, ipb_operator_right_trigger, ipb_operator_left_bumper, ipb_operator_right_bumper,
+                    ipb_operator_a, ipb_operator_b, ipb_operator_x, ipb_operator_y,
+                    ipb_operator_dpad_up, ipb_operator_dpad_down, ipb_operator_dpad_left, ipb_operator_dpad_right,
+                    ipb_operator_left_stick_button ]
+
+  input_numerics: [ ipn_driver_left_y, ipn_driver_left_x, ipn_driver_right_y, ipn_driver_right_x,
+                    ipn_operator_left_y, ipn_operator_left_x, ipn_operator_right_y, ipn_operator_right_x ]
+
+  input_vectors: [ ipv_pigeon, ipv_limelight_shooter, ipv_color_sensor,
+                   ipv_swerve_odometry, ipv_limelight_odometry, ipv_fused_odometry,
+                   ipv_drivetrain_front_right_angle, ipv_drivetrain_front_left_angle,
+                   ipv_drivetrain_back_right_angle, ipv_drivetrain_back_left_angle ]
+
+  output_numerics: [ opn_drivetrain_front_right_speed, opn_drivetrain_front_left_speed, opn_drivetrain_back_right_speed, opn_drivetrain_back_left_speed,
+                     opn_drivetrain_front_right_angle, opn_drivetrain_front_left_angle, opn_drivetrain_back_right_angle, opn_drivetrain_back_left_angle,
+                     opn_collector_rollers,
+                     opn_elevator_front_belt, opn_elevator_back_belt, opn_elevator_collector_belt,
+                     opn_flywheel,
+                     opn_climber,
+                     opn_hood,
+                     opn_relay_leds ]
+
+  output_booleans: [ opb_collector, opb_claw_top, opb_claw_bottom, opb_climber_deploy, opb_ball_guard ]
+
+global_timing:
+  frame_time_threshold_input_service: 80
+  frame_time_threshold_logging_service: 80
+  frame_time_threshold_output_service: 80
+  frame_time_threshold_state_service: 80
+  frame_time_threshold_webdashboard_service: 80
+  frame_cycle_time_threshold_core_thread: 80
+  frame_cycle_time_threshold_info_thread: 80
+
+global_all:
+  led_on_button: ipb_driver_x
+  pnp_button: ipb_operator_x
+
+global_targeting:
+  valid_distance_calculation_limelight_min_tx_angle: 20
+  primed_to_shoot_frames: 10
+
+global_manual:
+  manual_drivetrain_drive_axis: ipn_driver_left_y
+  manual_drivetrain_rotate_axis: ipn_driver_left_x
+  manual_collector_extend_button: ipb_operator_left_bumper
+  manual_collector_roller_on_button: ipb_operator_left_trigger
+  manual_elevator_front_belt_enabled_button: ipb_driver_b
+  manual_elevator_back_belt_enabled_button: ipb_driver_a
+  manual_elevator_front_belt_increase_button: ipb_driver_dpad_up
+  manual_elevator_front_belt_decrease_button: ipb_driver_dpad_down
+  manual_elevator_back_belt_increase_button: ipb_driver_dpad_right
+  manual_elevator_back_belt_decrease_button: ipb_driver_dpad_left
+  manual_flywheel_on_button: ipb_operator_right_bumper
+  manual_flywheel_increase_velocity: ipb_operator_dpad_up
+  manual_flywheel_decrease_velocity: ipb_operator_dpad_down
+  manual_hood_up_button: ipb_operator_dpad_right
+  manual_hood_down_button: ipb_operator_dpad_left
+  manual_climber_rotate_on_button: ipb_operator_right_trigger
+  manual_climber_rotate_joystick: ipn_operator_right_x
+  manual_climber_deploy_button: ipb_driver_y
+  manual_claw_top_button: ipb_operator_b
+  manual_claw_bottom_button: ipb_operator_x
+
+global_drivetrain_swerve:
+  module_positions: [ [ 11.875 , -11.875 ], [ 11.875, 11.875 ], [ -11.875, 11.875 ], [ -11.875, -11.875 ] ]
+  input_angle_names: [ ipv_drivetrain_front_right_angle, ipv_drivetrain_front_left_angle, ipv_drivetrain_back_left_angle, ipv_drivetrain_back_right_angle ]
+  input_position_names: [ ipn_drivetrain_front_right_speed_position, ipn_drivetrain_front_left_speed_position, ipn_drivetrain_back_left_speed_position, ipn_drivetrain_back_right_speed_position ]
+  output_angle_names: [ opn_drivetrain_front_right_angle, opn_drivetrain_front_left_angle, opn_drivetrain_back_left_angle, opn_drivetrain_back_right_angle ]
+  output_speed_names: [ opn_drivetrain_front_right_speed, opn_drivetrain_front_left_speed, opn_drivetrain_back_left_speed, opn_drivetrain_back_right_speed ]
+  imu: ipv_pigeon
+  limelight: ipv_limelight_shooter
+  odometry: ipv_swerve_odometry
+  fused_odometry: ipv_fused_odometry
+  heading_angle_offset: -2.0
+  heading_angle_adjust_button: ipn_operator_left_x
+  heading_angle_adjust_amount: 1.0
+  heading_controller: pr_swerve_heading
+  swerve_x: ipn_driver_left_x
+  swerve_y: ipn_driver_left_y
+  swerve_rotate: ipn_driver_right_x
+  swerve_field_oriented_button: ipb_driver_start
+  angle_zero_button: ipb_driver_back
+  max_module_velocity: 180.0
+  slow_mode_max_velocity: 20
+  slow_mode_button: ipb_driver_right_bumper
+  joystick_exponent: 2.4
+  joystick_deadzone: 0.10
+
+global_collector:
+  collect_button: ipb_operator_left_trigger
+  eject_button: ipb_operator_right_bumper
+  dejam_button: ipb_operator_left_bumper
+
+global_elevator:
+  stop_elevator_collect_joystick: ipn_operator_right_y
+  speed_while_shooting_and_missing_upper_ball: 15.0
+  dump_override_button: ipb_operator_b
+
+global_flywheel:
+  velocity_upper_limit: 3000.0
+  velocity_lower_limit: 0.0
+  velocity_increment_button: ipb_operator_dpad_up
+  velocity_decrement_button: ipb_operator_dpad_down
+  velocity_adjust_amount: 25.0
+  final_velocity_error: 50.0
+  velocity_distance_profile:
+    #  tuned for a constant arch height of 150" - angle based on Desmos - flywheel based on shot testing
+    0.0: 1650
+    60.0: 1650
+    90.0: 1725
+    120.0: 1800
+    150.0: 2025
+    180.0: 2200
+    210.0: 2425
+    240.0: 2500
+    270.0: 2775
+    300.0: 2875
+
+global_hood:
+  error_threshold: 0.5
+  increment_button: ipb_operator_dpad_right
+  decrement_button: ipb_operator_dpad_left
+  adjust_amount: 0.5
+  angle_distance_profile:
+    #  tuned for a constant arch height of 150" - angle based on Desmos - flywheel based on shot testing
+    0.0: 0.0
+    60.0: 0.0
+    90.0: 2.3
+    120.0: 6.0
+    150.0: 11.2
+    180.0: 13.1
+    210.0: 15.4
+    240.0: 19.7
+    270.0: 22.4
+    300.0: 22.4
+
+global_shoot:
+  prime_button: ipb_driver_left_trigger
+  prime_against_hub_button: ipb_driver_dpad_right
+  shoot_button: ipb_driver_right_trigger
+  prime_low_button: ipb_driver_dpad_left
+  prime_launchpad_button: ipb_driver_left_bumper
+  limelight_alignment_toggle_button: ipb_driver_a
+  fused_odometry_lock_override_button: ipb_driver_b
+  limelight_target_max_angle: 25.0
+
+global_climber:
+  error_threshold: 1.0
+  climber_sequence_button: ipb_operator_a
+  climber_rotate_joystick: ipn_operator_right_x
+  sequence_adjust_button: ipb_operator_right_trigger
+  climber_stall_button: ipb_operator_left_trigger
+  climb_align_zero_button: ipb_driver_y
+
+global_pneumatics:
+  #CTREPCM or REVPH
+  module_type: REVPH
+  #CTREPCM: 0
+  #REVPH: 21
+  device_id: 21
+
+log:
+#  ips_selected_auto: true
+
+global_webdashboard:
+
+  auto_selector:
+    origins: [ right_5ball, right_5ball_bump, left_2ball, left_2ball_hide_hub, left_2ball_hide_hangar, anywhere_1ball ]
+    destinations: [ none ]
+    actions: [ none ]
+
+  match_values:
+
+    ips_selected_auto:
+      display_name: Auto
+      type: auto
+
+    ipb_robot_has_been_zeroed:
+      display_name: Robot Zeroed
+      type: boolean
+
+    ipb_robot_use_odometry_alignment:
+      display_name: Use Odometry Targeting
+      type: boolean
+
+    ipb_override_color_sensor:
+      display_name: Override Color Sensor
+      type: boolean
+
+    ipb_endgame_enabled:
+      display_name: Climb Enabled
+      type: boolean
+
+    ipn_hood_offset:
+      display_name: Hood Angle Offset
+      type: value
+      decimal_places: 2
+
+    match_hood_position:
+      display_name: Hood Position
+      type: value
+      decimal_places: 2
+
+    ipn_flywheel_offset:
+      display_name: Flywheel Velocity Offset
+      type: value
+      decimal_places: 2
+
+    match_flywheel_velocity:
+      display_name: Flywheel Velocity
+      type: value
+      decimal_places: 2
+
+    ipn_drivetrain_heading_angle_offset:
+      display_name: Heading Angle Offset
+      type: value
+      decimal_places: 2
+
+    ipn_robot_distance_to_center_inches:
+      display_name: Distance to Hub Center
+      type: value
+      decimal_places: 2
+
+    ipn_fused_odometry_heading:
+      display_name: Fused Odometry Heading
+      type: value
+      decimal_places: 2
+
+    ipn_limelight_tx:
+      display_name: tx
+      type: value
+      decimal_places: 2
+
+    ipn_limelight_ty:
+      display_name: ty
+      type: value
+      decimal_places: 2
+
+    active states:
+      display_name: Active States
+      type: value
+
+    logger:
+      type: log
+      display_name: Logger
+      level: DEBUG
+
+    ipb_limelight_locked:
+      display_name: Limelight
+      type: other
+
+    ipb_hood_primed:
+      display_name: Hood
+      type: other
+
+    ipb_flywheel_primed:
+      display_name: Flywheel
+      type: other
+
+    ipb_primed_to_shoot:
+      display_name: Primed
+      type: other

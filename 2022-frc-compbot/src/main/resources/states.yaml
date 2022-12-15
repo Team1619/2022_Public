@@ -1,0 +1,954 @@
+single_state:
+
+  # ------ Drivetrain ------
+
+  st_drivetrain_zero:
+    behavior: bh_drivetrain_swerve_zero
+    behavior_config:
+      timeout_time: 1000
+      zeroing_threshold: 0.2
+
+  st_drivetrain_swerve:
+    behavior: bh_drivetrain_swerve
+
+  st_drivetrain_swerve_align_odometry:
+    behavior: bh_drivetrain_swerve
+    behavior_config:
+      align_source: "fused_odometry"
+      alignment_threshold: 2.0
+
+  st_drivetrain_swerve_align_limelight:
+    behavior: bh_drivetrain_swerve
+    behavior_config:
+      align_source: "limelight"
+      alignment_threshold: 1.0
+
+  st_drivetrain_launchpad:
+    behavior: bh_drivetrain_swerve
+    behavior_config:
+      align_source: "angle"
+      angle: -10.0
+
+  st_drivetrain_climb_align_zero:
+    behavior: bh_drivetrain_swerve
+    behavior_config:
+      align_source: "angle"
+      angle: 2.0
+
+  st_drivetrain_climb:
+    behavior: bh_drivetrain_swerve
+    behavior_config:
+      climbing: true
+
+  # ------ Collector ------
+
+  st_collector_zero:
+    behavior: bh_collector_zero
+    behavior_config:
+
+  st_collector_manual:
+    behavior: bh_collector_manual
+    behavior_config:
+      roller_speed: 0.5
+      position: false
+
+  st_collector_collect:
+    behavior: bh_collector_states
+    behavior_config:
+      roller_speed: 0.75
+      position: true
+
+  st_collector_retract:
+    behavior: bh_collector_states
+    behavior_config:
+      roller_speed: 0.0
+      position: false
+
+  st_collector_eject:
+    behavior: bh_collector_states
+    behavior_config:
+      roller_speed: -0.5
+      position: true
+
+  st_collector_auto_eject:
+    behavior: bh_collector_states
+    behavior_config:
+      roller_speed: -0.3
+      position: true
+
+  # ------ Elevator ------
+  # Max belt_speed is 21
+  # collector belt speed 6 is one full rotation in 1 second
+
+  st_elevator_zero:
+    behavior: bh_elevator_zero
+
+  st_elevator_manual:
+    behavior: bh_elevator_manual
+    behavior_config:
+      front_belt_speed: 0.2
+      back_belt_speed: -0.2
+      collector_belt_speed: 0.0
+      adjustment_speed: 0.1
+
+  st_elevator_collect:
+    behavior: bh_elevator_states
+    behavior_config:
+      belt_speed: 15
+      collector_belt_speed: 26
+      back_belt_hold_adjust_amount: 0.01
+
+  st_elevator_dejam:
+    behavior: bh_elevator_states
+    behavior_config:
+      belt_speed: 10
+      collector_belt_speed: 26
+      dejamming: true
+
+  st_elevator_eject:
+    behavior: bh_elevator_states
+    behavior_config:
+      belt_speed: 20
+      collector_belt_speed: 26
+      ejecting: true
+      eject_duration: 350
+
+  st_elevator_shoot:
+    behavior: bh_elevator_states
+    behavior_config:
+      belt_speed: 12
+      collector_belt_speed: 26
+      guarding: false
+      shooting: true
+
+  st_elevator_stop:
+    behavior: bh_elevator_states
+    behavior_config:
+      belt_speed: 0
+      collector_belt_speed: 0
+      stop: true
+
+  # ------ Flywheel ------
+
+  st_flywheel_zero:
+    behavior: bh_flywheel_zero
+
+  st_flywheel_manual:
+    behavior: bh_flywheel_manual
+    behavior_config:
+      start_speed: 0.2
+      increment_speed: 0.0025
+
+  st_flywheel_prime:
+    behavior: bh_flywheel_states
+    behavior_config:
+      velocity: 2000.0
+      allow_adjust: true
+      velocity_profile: pr_prime
+      distance_source: "limelight"
+      limelight_leds_on: true
+
+  st_flywheel_idle_prime:
+    behavior: bh_flywheel_states
+    behavior_config:
+      velocity: 2000.0
+      allow_adjust: true
+      velocity_profile: pr_prime
+      distance_source: "limelight"
+      limelight_leds_on: false
+
+  st_flywheel_prime_against_hub:
+    behavior: bh_flywheel_states
+    behavior_config:
+      velocity: 1600.0
+      allow_adjust: true
+      velocity_profile: pr_prime
+      limelight_leds_on: false
+
+  st_flywheel_prime_low_goal:
+    behavior: bh_flywheel_states
+    behavior_config:
+      velocity: 650.0
+      allow_adjust: true
+      velocity_profile: pr_prime
+      limelight_leds_on: false
+
+  st_flywheel_prime_launchpad:
+    behavior: bh_flywheel_states
+    behavior_config:
+      velocity: 2250.0
+      allow_adjust: true
+      velocity_profile: pr_prime
+      limelight_leds_on: false
+
+  st_flywheel_shoot:
+    behavior: bh_flywheel_states
+    behavior_config:
+      velocity: -1.0 # hold prime velocity
+      velocity_profile: pr_shoot
+      limelight_leds_on: false
+
+  st_flywheel_r1_r2:
+    behavior: bh_flywheel_states
+    behavior_config:
+      velocity: 1700.0
+      velocity_profile: pr_prime
+      distance_source: "limelight"
+      limelight_leds_auto_toggle: true
+
+  st_flywheel_r3_r4:
+    behavior: bh_flywheel_states
+    behavior_config:
+      velocity: 2125.0
+      velocity_profile: pr_prime
+      distance_source: "limelight"
+      limelight_leds_auto_toggle: true
+
+  st_flywheel_r5_r6:
+    behavior: bh_flywheel_states
+    behavior_config:
+      velocity: 2250.0
+      velocity_profile: pr_prime
+      distance_source: "limelight"
+      limelight_leds_auto_toggle: true
+
+  st_flywheel_ball_l1_l2:
+    behavior: bh_flywheel_states
+    behavior_config:
+      velocity: 2075.0
+      velocity_profile: pr_prime
+      distance_source: "limelight"
+      limelight_leds_auto_toggle: true
+
+  st_first_flywheel_ball_l1_l2:
+    behavior: bh_flywheel_states
+    behavior_config:
+      velocity: 1650.0
+      velocity_profile: pr_prime
+      distance_source: "limelight"
+      limelight_leds_auto_toggle: true
+
+  st_flywheel_ball_l3:
+    behavior: bh_flywheel_states
+    behavior_config:
+      velocity: 1950.0
+      velocity_profile: pr_prime
+      distance_source: "limelight"
+      limelight_leds_auto_toggle: true
+
+  st_flywheel_ball_1_2:
+    behavior: bh_flywheel_states
+    behavior_config:
+      velocity: 2350.0
+      velocity_profile: pr_prime
+      distance_source: "limelight"
+      limelight_leds_auto_toggle: true
+
+  st_flywheel_ball_3:
+    behavior: bh_flywheel_states
+    behavior_config:
+      velocity: 2200.0
+      velocity_profile: pr_prime
+      distance_source: "limelight"
+      limelight_leds_auto_toggle: true
+
+  st_flywheel_ball_3_to_4_5:
+    behavior: bh_flywheel_states
+    behavior_config:
+      velocity: 2125.0
+      velocity_profile: pr_prime
+      limelight_leds_auto_toggle: false
+
+  st_flywheel_ball_4_5:
+    behavior: bh_flywheel_states
+    behavior_config:
+      velocity: 2350.0
+      velocity_profile: pr_prime
+      distance_source: "limelight"
+      limelight_leds_auto_toggle: true
+
+  st_flywheel_idle:
+    behavior: bh_flywheel_states
+    behavior_config:
+      velocity: 2000.0
+      allow_adjust: true
+      coast: true
+      velocity_profile: pr_prime
+
+  st_flywheel_stop:
+    behavior: bh_flywheel_states
+    behavior_config:
+      velocity: 0.0
+      allow_adjust: true
+      coast: true
+      velocity_profile: pr_prime
+
+  # ------ Hood ------
+
+  st_hood_zero:
+    behavior: bh_hood_zero
+    behavior_config:
+      zeroing_speed: -0.075
+      zeroing_threshold: 1.0
+      zeroing_timeout_time: 3000
+      zeroing_motor_start_time: 100
+      zeroing_velocity_wait_time: 100
+
+  st_hood_manual:
+    behavior: bh_hood_manual
+    behavior_config:
+      speed: 0.1
+
+  st_hood_prime:
+    behavior: bh_hood_states
+    behavior_config:
+      hood_position: 0.0
+      allow_adjust: true
+      distance_source: "limelight"
+
+  st_hood_idle_prime:
+    behavior: bh_hood_states
+    behavior_config:
+      hood_position: 0.0
+      allow_adjust: true
+      distance_source: "limelight"
+
+  st_hood_prime_against_hub:
+    behavior: bh_hood_states
+    behavior_config:
+      hood_position: 0.0
+      allow_adjust: true
+
+  st_hood_prime_low_goal:
+    behavior: bh_hood_states
+    behavior_config:
+      hood_position: 26.0
+      allow_adjust: false
+
+  st_hood_prime_launchpad:
+    behavior: bh_hood_states
+    behavior_config:
+      hood_position: 13.5
+      allow_adjust: true
+
+  st_hood_r1_r2:
+    behavior: bh_hood_states
+    behavior_config:
+      hood_position: 3.0
+      distance_source: "limelight"
+
+  st_hood_r3_r4:
+    behavior: bh_hood_states
+    behavior_config:
+      hood_position: 13.0
+      distance_source: "limelight"
+
+  st_hood_r5_r6:
+    behavior: bh_hood_states
+    behavior_config:
+      hood_position: 10.5
+      distance_source: "limelight"
+
+  st_hood_ball_l1_l2:
+    behavior: bh_hood_states
+    behavior_config:
+      hood_position: 11.5
+      distance_source: "limelight"
+
+  st_first_hood_ball_l1_l2:
+    behavior: bh_hood_states
+    behavior_config:
+      hood_position: 8.0
+      distance_source: "limelight"
+
+  st_hood_ball_l3:
+    behavior: bh_hood_states
+    behavior_config:
+      hood_position: 10.0
+      distance_source: "limelight"
+
+  st_hood_ball_1_2:
+    behavior: bh_hood_states
+    behavior_config:
+      hood_position: 15.0
+      distance_source: "limelight"
+
+  st_hood_ball_3:
+    behavior: bh_hood_states
+    behavior_config:
+      hood_position: 13.0
+      distance_source: "limelight"
+
+  st_hood_ball_3_to_4_5:
+    behavior: bh_hood_states
+    behavior_config:
+      hood_position: 13.0
+
+  st_hood_ball_4_5:
+    behavior: bh_hood_states
+    behavior_config:
+      hood_position: 14.0
+      distance_source: "limelight"
+
+  st_hood_shoot:
+    behavior: bh_hood_states
+    behavior_config:
+      hood_position: -1.0 # hold prime angle
+      allow_adjust: true
+
+  # ------ Climber ------
+
+  st_climber_zero:
+    behavior: bh_climber_zero
+    behavior_config:
+      zeroing_threshold: 0.1
+      claw_top: false
+      claw_bottom: true
+      climber_deploy: false
+
+  st_climber_manual:
+    behavior: bh_manual_climber
+    behavior_config:
+      claw_top: false
+      claw_bottom: true
+      climber_deploy: false
+      climber_deploy_time: 5000
+      coast_mode: true
+
+  st_climber_deploy:
+    behavior: bh_climber_deploy
+    behavior_config:
+      claw_top: false
+      claw_bottom: true
+      climb_enabled: true
+      climber_extend: true
+      deploy_wait_time: 100
+      final_angle: -167.0
+
+  # Rotate to second bar
+  st_climber_arm_step1:
+    behavior: bh_climber_states
+    behavior_config:
+      claw_top: false
+      claw_bottom: false
+      arm_position: 6.0
+      velocity_profile: pr_climb
+      adjust_climber: true
+
+  # Move arm to change CG
+  st_climber_arm_step2:
+    behavior: bh_climber_states
+    behavior_config:
+      claw_top: false
+      claw_bottom: false
+      arm_position: -66.0
+      velocity_profile: pr_climb
+      adjust_climber: true
+
+  # Open claws holding onto the first bar
+  st_climber_claw_step3:
+    behavior: bh_climber_states
+    behavior_config:
+      claw_top: true
+      claw_bottom: false
+      arm_position: -66.0
+      velocity_profile: pr_climb
+      adjust_climber: true
+
+  # Rotate arm to the third bar
+  st_climber_arm_step4:
+    behavior: bh_climber_states
+    behavior_config:
+      claw_top: false
+      claw_bottom: false
+      arm_position: 206.0
+      activate_claw_values_at_position: 37.0
+      velocity_profile: pr_climb
+      adjust_climber: true
+
+  # Rotate arm to change CG
+  st_climber_arm_step5:
+    behavior: bh_climber_states
+    behavior_config:
+      claw_top: false
+      claw_bottom: false
+      arm_position: 129.0
+      velocity_profile: pr_climb
+      adjust_climber: true
+      turn_wheels: true
+
+  # Open claws on second bar
+  st_climber_claw_step6:
+    behavior: bh_climber_states
+    behavior_config:
+      claw_top: false
+      claw_bottom: true
+      arm_position: 129.0
+      velocity_profile: pr_climb
+      adjust_climber: true
+
+  # Rotate arm so we are hanging directly below the third bar
+  st_climber_arm_step7:
+    behavior: bh_climber_states
+    behavior_config:
+      claw_top: false
+      claw_bottom: true
+      arm_position: 209.0
+      velocity_profile: pr_climb
+      adjust_climber: true
+      coast_mode: true
+
+  # ------ Autos ------
+
+  st_drive_forward_test:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_drive_forward_test
+
+  # ------ ANYWHERE 1 BALL ------
+
+  st_anywhere_across_line:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_anywhere_across_line
+
+  # ------ RIGHT 6 BALL ------
+
+  st_start_to_r3:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_start_to_r3
+
+  st_r3_to_shoot_r3:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_r3_to_shoot_r3
+
+  st_shoot_r3_to_r4:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_shoot_r3_to_r4
+
+  st_r4_to_r5_r6:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_r4_to_r5_r6
+
+  st_r5_r6_to_shoot_r5_r6:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_r5_r6_to_shoot_r5_r6
+
+  # ------ RIGHT 5 BALL ------
+
+  st_right_start:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_right_start
+
+  st_start_to_ball_2:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_start_to_ball_2
+
+  st_ball_2_to_shoot_1_2:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_ball_2_to_shoot_1_2
+
+  st_shoot_1_2_to_ball_3:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_shoot_1_2_to_ball_3
+
+  st_ball_3_to_ball_4:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_ball_3_to_ball_4
+
+  st_ball_4_to_ball_5:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_ball_4_to_ball_5
+
+  st_ball_5_to_shoot_4_5:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_ball_5_to_shoot_4_5
+
+  st_ball_5_to_shoot_4_5_bump:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_ball_5_to_shoot_4_5_bump
+
+  # ------ LEFT 2 BALL ------
+
+  st_start_to_ball_l2:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_start_to_ball_l2
+
+  st_ball_l2_to_shoot_l2:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_ball_l2_to_shoot_l2
+
+  st_shoot_l2_to_rotate_o2:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_shoot_l2_to_rotate_o2
+
+  st_rotate_o2_to_ball_o2:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_rotate_o2_to_ball_o2
+
+  st_ball_o2_to_dump_o2:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_ball_o2_to_dump_o2
+
+  st_dump_o2_to_ball_l3:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_dump_o2_to_ball_l3
+
+  st_ball_o2_to_hangar_dump:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_ball_o2_to_hangar_dump
+
+  st_hangar_dump_to_ball_l3:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_hangar_dump_to_ball_l3
+
+# ------ CHEZY AUTOS ------
+# ------ LEFT 3 BALL ------
+  st_left_start:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_left_start
+
+  st_start_to_ball_l3:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_to_ball_l3
+
+  st_ball_l3_to_shoot_l3:
+    behavior: bh_drivetrain_swerve_pure_pursuit
+    behavior_config:
+      path_name: pt_ball_l3_to_shoot_l3
+
+time_out_state:
+  # Force isDone to be true after state has been active for the timeout period
+
+wait_after_done_state:
+  # Force isDone to be false for the wait time after isDone goes true
+  # Force isDone to be true after state has been active for the timeout period
+
+  # ------ Elevator ------
+
+  wt_collect:
+    state: pl_collect
+    wait_after_done_time: 1000
+    timeout_time: 1000
+
+  wt_auto_eject:
+    state: pl_auto_eject
+    wait_after_done_time: 1500
+    timeout_time: 1500
+
+  # ------ Climber ------
+
+  wt_climber_wait_step3:
+    state: st_climber_claw_step3
+    wait_after_done_time: 250
+    timeout_time: 250
+
+  wt_climber_wait_step6:
+    state: st_climber_claw_step6
+    wait_after_done_time: 250
+    timeout_time: 250
+
+  # ------ Parallels ------
+
+  wt_auto_shoot:
+    state: pl_auto_shoot
+    wait_after_done_time: 1500
+    timeout_time: 1500
+
+  wt_shoot_r1_r2:
+    state: pl_shoot_r1_r2
+    wait_after_done_time: 400
+    timeout_time: 400
+
+  wt_shoot_r3_r4:
+    state: pl_shoot_r3_r4
+    wait_after_done_time: 1000
+    timeout_time: 1000
+
+  wt_shoot_r5_r6:
+    state: pl_shoot_r5_r6
+    wait_after_done_time: 750
+    timeout_time: 750
+
+  wt_shoot_ball_l1_l2:
+    state: pl_shoot_ball_l1_l2
+    wait_after_done_time: 250
+    timeout_time: 250
+
+  wt_shoot_ball_l3:
+    state: pl_shoot_ball_l3
+    wait_after_done_time: 500
+    timeout_time: 500
+
+  wt_first_shoot_ball_l1_l2:
+    state: pl_first_shoot_ball_l1_l2
+    wait_after_done_time: 1000
+    timeout_time: 1000
+
+  wt_shoot_ball_1_2:
+    state: pl_shoot_ball_1_2
+    wait_after_done_time: 500
+    timeout_time: 500
+
+  wt_shoot_ball_3:
+    state: pl_shoot_ball_3
+    wait_after_done_time: 1350
+    timeout_time: 1350
+
+  wt_shoot_ball_4_5:
+    state: pl_shoot_ball_4_5
+    wait_after_done_time: 750
+    timeout_time: 850
+
+  wt_prime_start_wait:
+    state: pl_prime_start_wait
+    wait_after_done_time: 50
+    timeout_time: 50
+
+  wt_prime_start_wait_anywhere:
+    state: pl_prime_start_wait
+    wait_after_done_time: 5000
+    timeout_time: 5000
+
+parallel_state:
+
+  pl_collect:
+    foreground_states: [ st_collector_collect ]
+
+  pl_prime:
+    foreground_states: [ st_elevator_collect, st_flywheel_prime, st_hood_prime ]
+
+  pl_prime_against_hub:
+    foreground_states: [ st_collector_retract, st_elevator_collect, st_flywheel_prime_against_hub, st_hood_prime_against_hub ]
+
+  pl_prime_low_goal:
+    foreground_states: [ st_collector_retract, st_elevator_collect, st_flywheel_prime_low_goal, st_hood_prime_low_goal ]
+
+  pl_prime_launchpad:
+    foreground_states: [ st_drivetrain_launchpad, st_collector_retract, st_elevator_collect, st_flywheel_prime_launchpad, st_hood_prime_launchpad ]
+
+  pl_shoot:
+    foreground_states: [ st_elevator_shoot, st_flywheel_shoot, st_hood_shoot ]
+
+  pl_eject:
+    foreground_states: [ st_collector_eject ]
+    background_states: [ st_elevator_eject ]
+
+  pl_auto_eject:
+    foreground_states: [ st_collector_auto_eject ]
+    background_states: [ st_elevator_eject ]
+
+  pl_dejam:
+    foreground_states: [ st_collector_eject, st_elevator_dejam ]
+
+  # ------ Autos ------
+
+  pl_auto_prime:
+    foreground_states: [ st_drivetrain_swerve_align_odometry, pl_prime ]
+
+  pl_auto_shoot:
+    foreground_states: [ st_drivetrain_swerve_align_odometry, pl_shoot ]
+
+  # ------ ANYWHERE 1 BALL ------
+
+  pl_anywhere_across_line:
+    foreground_states: [ st_anywhere_across_line, st_flywheel_prime ]
+
+  # ------ LEFT 2 BALL ------
+
+  pl_prime_ball_l1_l2:
+    foreground_states: [ st_drivetrain_swerve_align_odometry, st_elevator_collect, st_flywheel_ball_l1_l2, st_hood_ball_l1_l2 ]
+
+  pl_shoot_ball_l1_l2:
+    foreground_states: [ st_drivetrain_swerve_align_odometry, st_elevator_shoot, st_flywheel_ball_l1_l2, st_hood_ball_l1_l2 ]
+
+  pl_collect_prime_start_to_ball_l2:
+    foreground_states: [ st_start_to_ball_l2, st_collector_collect, st_elevator_collect, st_flywheel_ball_l1_l2, st_hood_ball_l1_l2 ]
+
+  pl_ball_l2_to_shoot_l2:
+    foreground_states: [ st_ball_l2_to_shoot_l2, st_collector_collect, st_elevator_collect, st_flywheel_ball_l1_l2, st_hood_ball_l1_l2 ]
+
+  pl_shoot_l2_to_rotate_o2:
+    foreground_states: [ st_shoot_l2_to_rotate_o2, st_collector_collect, st_elevator_stop, st_flywheel_ball_l1_l2, st_hood_ball_l1_l2 ]
+
+  pl_rotate_o2_to_ball_o2:
+    foreground_states: [ st_rotate_o2_to_ball_o2, st_collector_collect, st_elevator_stop, st_flywheel_ball_l1_l2, st_hood_ball_l1_l2 ]
+
+  pl_retract_dump_o2_to_ball_l3:
+    foreground_states: [ st_dump_o2_to_ball_l3, st_collector_retract, st_elevator_stop ]
+
+  pl_retract_hangar_dump_to_ball_l3:
+    foreground_states: [ st_hangar_dump_to_ball_l3, st_collector_retract, st_elevator_stop ]
+
+  # ------ RIGHT 6 BALL ------
+
+  pl_prime_r1_r2:
+    foreground_states: [ st_drivetrain_swerve_align_odometry, st_elevator_collect, st_flywheel_r1_r2, st_hood_r1_r2 ]
+
+  pl_shoot_r1_r2:
+    foreground_states: [ st_drivetrain_swerve_align_odometry, st_elevator_shoot, st_flywheel_r1_r2, st_hood_r1_r2 ]
+
+  pl_collect_start_to_r3:
+    foreground_states: [ st_start_to_r3, st_collector_collect, st_elevator_collect, st_flywheel_r3_r4, st_hood_r3_r4 ]
+
+  pl_prime_r3_to_shoot_r3:
+    foreground_states: [ st_r3_to_shoot_r3, sq_collector_collect_retract, st_elevator_collect, st_flywheel_r3_r4, st_hood_r3_r4 ]
+
+  pl_collect_prime_shoot_r3_to_r4:
+    foreground_states: [ st_shoot_r3_to_r4, st_collector_collect, st_elevator_collect, st_flywheel_r3_r4, st_hood_r3_r4 ]
+
+  pl_prime_r3_r4:
+    foreground_states: [ st_drivetrain_swerve_align_odometry, st_elevator_collect, st_flywheel_r3_r4, st_hood_r3_r4 ]
+
+  pl_shoot_r3_r4:
+    foreground_states: [ st_drivetrain_swerve_align_odometry, st_elevator_shoot, st_elevator_shoot, st_flywheel_r3_r4, st_hood_r3_r4 ]
+
+  pl_collect_r4_to_r5_r6:
+    foreground_states: [ st_r4_to_r5_r6, st_collector_collect, st_elevator_collect, st_flywheel_r5_r6, st_hood_r5_r6 ]
+
+  pl_prime_r5_r6_to_shoot_r5_r6:
+    foreground_states: [ st_r5_r6_to_shoot_r5_r6, st_elevator_collect, st_flywheel_r5_r6, st_hood_r5_r6 ]
+
+  pl_prime_r5_r6:
+    foreground_states: [ st_drivetrain_swerve_align_odometry, st_elevator_collect, st_flywheel_r5_r6, st_hood_r5_r6 ]
+
+  pl_shoot_r5_r6:
+    foreground_states: [ st_drivetrain_swerve_align_odometry, st_elevator_shoot, st_flywheel_r5_r6, st_hood_r5_r6 ]
+
+  # ------ RIGHT 5 BALL ------
+
+  pl_collect_prime_start_to_ball_2:
+    foreground_states: [ st_start_to_ball_2, st_collector_collect, st_elevator_collect, st_flywheel_ball_1_2, st_hood_ball_1_2 ]
+
+  pl_prime_ball_2_to_shoot_1_2:
+    foreground_states: [ st_ball_2_to_shoot_1_2, sq_collector_collect_retract, st_elevator_collect, st_flywheel_ball_1_2, st_hood_ball_1_2 ]
+
+  pl_collect_prime_shoot_1_2_to_ball_3:
+    foreground_states: [ st_shoot_1_2_to_ball_3, st_collector_collect, st_elevator_collect, st_flywheel_ball_3, st_hood_ball_3 ]
+
+  pl_collect_ball_3_to_ball_4:
+    foreground_states: [ st_ball_3_to_ball_4, st_collector_collect, st_elevator_collect, st_flywheel_ball_3_to_4_5, st_hood_ball_3_to_4_5 ]
+
+  pl_prime_ball_5_to_shoot_4_5:
+    foreground_states: [ st_ball_5_to_shoot_4_5, st_elevator_collect, st_flywheel_ball_4_5, st_hood_ball_4_5 ]
+
+  pl_prime_ball_5_to_shoot_4_5_bump:
+    foreground_states: [ st_ball_5_to_shoot_4_5_bump, sq_collector_collect_retract, st_flywheel_ball_4_5, st_hood_ball_4_5 ]
+
+  pl_prime_ball_1_2:
+    foreground_states: [ st_drivetrain_swerve_align_odometry, st_elevator_collect, st_flywheel_ball_1_2, st_hood_ball_1_2 ]
+
+  pl_shoot_ball_1_2:
+    foreground_states: [ st_drivetrain_swerve_align_odometry, st_elevator_shoot, st_flywheel_ball_1_2, st_hood_ball_1_2 ]
+
+  pl_prime_ball_3:
+    foreground_states: [ st_drivetrain_swerve_align_odometry, st_elevator_collect, st_flywheel_ball_3, st_hood_ball_3 ]
+
+  pl_shoot_ball_3:
+    foreground_states: [ st_drivetrain_swerve_align_odometry, st_elevator_shoot, st_flywheel_ball_3, st_hood_ball_3 ]
+
+  pl_prime_ball_4_5:
+    foreground_states: [ st_drivetrain_swerve_align_odometry, st_elevator_collect, st_flywheel_ball_4_5, st_hood_ball_4_5 ]
+
+  pl_shoot_ball_4_5:
+    foreground_states: [ st_drivetrain_swerve_align_odometry, st_elevator_shoot, st_flywheel_ball_4_5, st_hood_ball_4_5 ]
+
+  pl_prime_start_wait:
+    foreground_states: [ st_flywheel_ball_l1_l2, st_hood_ball_l1_l2 ]
+
+
+# ------ CHEZY AUTOS ------
+# ------ LEFT 3 BALL ------
+  pl_first_prime_ball_l1_l2:
+    foreground_states: [ st_drivetrain_swerve_align_odometry, st_elevator_collect, st_first_flywheel_ball_l1_l2, st_first_hood_ball_l1_l2 ]
+
+  pl_first_shoot_ball_l1_l2:
+    foreground_states: [ st_drivetrain_swerve_align_odometry, st_elevator_shoot, st_first_flywheel_ball_l1_l2, st_first_hood_ball_l1_l2 ]
+
+  pl_collect_prime_start_to_ball_l3:
+    foreground_states: [ st_start_to_ball_l3, st_collector_collect, st_elevator_collect, st_flywheel_ball_l3, st_hood_ball_l3 ]
+
+  pl_ball_l3_to_shoot_l3:
+    foreground_states: [ st_ball_l3_to_shoot_l3, st_collector_collect, st_elevator_collect, st_flywheel_ball_l3, st_hood_ball_l3 ]
+
+  pl_prime_ball_l3:
+    foreground_states: [ st_drivetrain_swerve_align_odometry, st_elevator_collect, st_flywheel_ball_l3, st_hood_ball_l3 ]
+
+  pl_shoot_ball_l3:
+    foreground_states: [ st_drivetrain_swerve_align_odometry, st_elevator_shoot, st_flywheel_ball_l3, st_hood_ball_l3 ]
+
+sequencer_state:
+
+  # ------ Climber ------
+
+  sq_climber_climb:
+    sequence: [ st_climber_arm_step1, st_climber_arm_step2, wt_climber_wait_step3, st_climber_arm_step4, st_climber_arm_step5,
+                wt_climber_wait_step6, st_climber_arm_step7 ]
+
+  # ------ Autos ------
+
+  sq_auto_right_6ball:
+    sequence: [ st_right_start, pl_prime_r1_r2, wt_shoot_r1_r2, pl_collect_start_to_r3, pl_prime_r3_to_shoot_r3, pl_collect_prime_shoot_r3_to_r4,
+                pl_prime_r3_r4, wt_shoot_r3_r4, pl_collect_r4_to_r5_r6, pl_prime_r5_r6_to_shoot_r5_r6, pl_prime_r5_r6, wt_shoot_r5_r6 ]
+
+  sq_auto_right_5ball:
+    sequence: [ pl_collect_prime_start_to_ball_2, pl_prime_ball_2_to_shoot_1_2, pl_prime_ball_1_2, wt_shoot_ball_1_2,
+                pl_collect_prime_shoot_1_2_to_ball_3, pl_prime_ball_3, wt_shoot_ball_3, pl_collect_ball_3_to_ball_4,
+                pl_prime_ball_5_to_shoot_4_5, pl_prime_ball_4_5, wt_shoot_ball_4_5 ]
+
+  sq_auto_right_5ball_bump:
+    sequence: [ pl_collect_prime_start_to_ball_2, pl_prime_ball_2_to_shoot_1_2, pl_prime_ball_1_2, wt_shoot_ball_1_2,
+                pl_collect_prime_shoot_1_2_to_ball_3, pl_prime_ball_3, wt_shoot_ball_3, pl_collect_ball_3_to_ball_4,
+                pl_prime_ball_5_to_shoot_4_5_bump, pl_prime_ball_4_5, wt_shoot_ball_4_5 ]
+
+  sq_auto_left_2ball:
+    sequence: [ wt_prime_start_wait, pl_collect_prime_start_to_ball_l2, pl_ball_l2_to_shoot_l2, pl_prime_ball_l1_l2, wt_shoot_ball_l1_l2 ]
+
+  sq_auto_left_3ball:
+    sequence: [ st_left_start, pl_first_prime_ball_l1_l2, wt_first_shoot_ball_l1_l2, pl_collect_prime_start_to_ball_l3, pl_ball_l3_to_shoot_l3, pl_prime_ball_l3, wt_shoot_ball_l3 ]
+
+  sq_auto_left_2ball_hide_hub:
+    sequence: [ sq_auto_left_2ball, pl_shoot_l2_to_rotate_o2, pl_rotate_o2_to_ball_o2, st_ball_o2_to_dump_o2, wt_auto_eject, pl_retract_dump_o2_to_ball_l3 ]
+
+  sq_auto_left_3ball_hide_hub:
+    sequence: [ sq_auto_left_3ball, pl_shoot_l2_to_rotate_o2, pl_rotate_o2_to_ball_o2, st_ball_o2_to_dump_o2, wt_auto_eject, pl_retract_dump_o2_to_ball_l3 ]
+
+  sq_auto_left_2ball_hide_hangar:
+    sequence: [ sq_auto_left_2ball, pl_shoot_l2_to_rotate_o2, pl_rotate_o2_to_ball_o2, st_ball_o2_to_hangar_dump, wt_auto_eject,
+                pl_retract_hangar_dump_to_ball_l3 ]
+                
+  sq_auto_left_3ball_hide_hangar:
+    sequence: [ sq_auto_left_3ball, pl_shoot_l2_to_rotate_o2, pl_rotate_o2_to_ball_o2, st_ball_o2_to_hangar_dump, wt_auto_eject,
+                pl_retract_hangar_dump_to_ball_l3 ]
+
+  sq_auto_anywhere_1ball:
+    sequence: [ wt_prime_start_wait_anywhere, pl_anywhere_across_line, pl_auto_prime, wt_auto_shoot ]
+
+  sq_auto_forward_test:
+    sequence: [ st_drive_forward_test ]
+
+  sq_collector_collect_retract:
+    sequence: [ wt_collect, st_collector_retract ]

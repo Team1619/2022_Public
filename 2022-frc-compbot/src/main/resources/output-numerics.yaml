@@ -1,0 +1,305 @@
+talon:
+
+  # ------ Swerve Drivetrain ------
+
+  <<: &speed_primary_defaults
+    type: fx
+    inverted: false
+    feedback_device: internal_encoder
+    read_position: true
+    read_velocity: true
+    read_temperature: false
+    # The position scalar is the inches traveled per encoder click
+    # To measure the scalars more accurately, put the robot on the ground,
+    # set scalars to 1.00, and push it 10 ft while counting the encoder
+    # clicks with the computer. 120 inches / encoder clicks from dashboard
+    position_scalar: 0.0008980
+    velocity_scalar: 0.0008980
+    sensor_inverted: false
+    current_limit_enabled: true
+    continuous_current_limit_amps: 25
+    peak_current_limit_amps: 30
+    peak_current_duration_milliseconds: 100
+    status_1_can_bus_update_period: 255
+    profiles:
+      pr_align:
+        f: 0.05
+        p: 0.2
+        i: 0.0
+        d: 1.0
+      pr_pure_pursuit:
+        f: 0.05
+        p: 0.2
+        i: 0.0
+        d: 1.0
+      pr_drive:
+        f: 0.05
+        p: 0.0
+        i: 0.0
+        d: 0.0
+
+  <<: &angle_defaults
+    type: fx
+    inverted: true
+    feedback_device: internal_encoder
+    read_position: true
+    read_velocity: false
+    read_temperature: false
+    # The position scalar is the degrees traveled per encoder click
+    # To measure the scalars more accurately, put the robot on blocks,
+    # set scalars to 1.00, and rotate the a wheel by hand 10 times
+    # while counting the encoder clicks on the computer. 10 * 360 / encoder clicks from dashboard
+    position_scalar: 0.008203125
+    velocity_scalar: 0.008203125
+    sensor_inverted: false
+    current_limit_enabled: true
+    continuous_current_limit_amps: 25
+    peak_current_limit_amps: 30
+    peak_current_duration_milliseconds: 100
+    status_1_can_bus_update_period: 255
+    profiles:
+      pr_drive:
+        f: 0.0
+        p: 0.2
+        i: 0.0
+        d: 0.1
+
+  # ------ Drivetrain ------
+
+  opn_drivetrain_front_right_speed:
+    device_number: 2
+    <<: *speed_primary_defaults
+
+  opn_drivetrain_front_left_speed:
+    device_number: 17
+    <<: *speed_primary_defaults
+
+  opn_drivetrain_back_left_speed:
+    device_number: 19
+    <<: *speed_primary_defaults
+
+  opn_drivetrain_back_right_speed:
+    device_number: 0
+    <<: *speed_primary_defaults
+
+  opn_drivetrain_front_right_angle_motor:
+    device_number: 3
+    <<: *angle_defaults
+
+  opn_drivetrain_front_left_angle_motor:
+    device_number: 16
+    <<: *angle_defaults
+
+  opn_drivetrain_back_left_angle_motor:
+    device_number: 18
+    <<: *angle_defaults
+
+  opn_drivetrain_back_right_angle_motor:
+    device_number: 1
+    <<: *angle_defaults
+
+  # ------ Collector ------
+
+  opn_collector_rollers:
+    device_number: 13
+    inverted: false
+    status_1_can_bus_update_period: 40
+    status_2_can_bus_update_period: 255
+    brushless_current_can_bus_update_period: 255
+
+  # ------ Elevator ------
+
+  opn_elevator_front_belt:
+    device_number: 4
+    inverted: true
+    feedback_device: internal_encoder
+    read_position: false
+    read_velocity: true
+    position_scalar: 0.00009765625
+    velocity_scalar: 0.00009765625
+    read_temperature: false
+    current_limit_enabled: true
+    continuous_current_limit_amps: 25
+    peak_current_limit_amps: 30
+    peak_current_duration_milliseconds: 100
+    status_1_can_bus_update_period: 255
+    status_2_can_bus_update_period: 40
+    brushless_current_can_bus_update_period: 50
+    profiles:
+      pr_belts:
+        f: 0.045
+        p: 0.1
+        i: 0.0
+        d: 0.0
+
+  opn_elevator_back_belt:
+    device_number: 5
+    inverted: false
+    feedback_device: internal_encoder
+    read_position: false
+    read_velocity: true
+    position_scalar: 0.00009765625
+    velocity_scalar: 0.00009765625
+    read_temperature: false
+    current_limit_enabled: true
+    continuous_current_limit_amps: 25
+    peak_current_limit_amps: 30
+    peak_current_duration_milliseconds: 100
+    status_1_can_bus_update_period: 255
+    status_2_can_bus_update_period: 40
+    brushless_current_can_bus_update_period: 50
+    profiles:
+      pr_belts:
+        f: 0.045
+        p: 0.1
+        i: 0.0
+        d: 0.0
+
+  opn_elevator_collector_belt:
+    device_number: 10
+    inverted: true
+    feedback_device: internal_encoder
+    read_position: false
+    read_velocity: true
+    position_scalar: 0.000122070312
+    velocity_scalar: 0.000122070312
+    read_temperature: false
+    current_limit_enabled: true
+    continuous_current_limit_amps: 25
+    peak_current_limit_amps: 30
+    peak_current_duration_milliseconds: 100
+    status_1_can_bus_update_period: 255
+    status_2_can_bus_update_period: 40
+    brushless_current_can_bus_update_period: 50
+    profiles:
+      pr_belts:
+        f: 0.045
+        p: 0.1
+        i: 0.0
+        d: 0.0
+
+  # ------ Flywheel ------
+
+  opn_flywheel_primary:
+    device_number: 14
+    inverted: false
+    feedback_device: internal_encoder
+    read_position: true
+    read_velocity: true
+    position_scalar: 0.0260000
+    velocity_scalar: 0.0260000
+    read_temperature: false
+    current_limit_enabled: false
+    continuous_current_limit_amps: 25
+    peak_current_limit_amps: 30
+    peak_current_duration_milliseconds: 100
+    profiles:
+      pr_prime:
+        f: 0.049
+        p: 0.3
+        i: 0.01
+        d: 2.0
+        izone: 100.0
+      pr_shoot:
+        f: 0.049
+        p: 0.3
+        i: 0.01
+        d: 2.0
+        izone: 100.0
+
+  opn_flywheel_follower:
+    device_number: 15
+    inverted: false
+    read_temperature: false
+    current_limit_enabled: false
+    continuous_current_limit_amps: 25
+    peak_current_limit_amps: 30
+    peak_current_duration_milliseconds: 100
+
+  # ------ Hood ------
+
+  opn_hood:
+    device_number: 12
+    inverted: true
+    feedback_device: internal_encoder
+    read_position: true
+    read_velocity: true
+    position_scalar: 0.0016964
+    velocity_scalar: 0.0016964
+    status_1_can_bus_update_period: 255
+    status_2_can_bus_update_period: 40
+    brushless_current_can_bus_update_period: 255
+    profiles:
+      pr_hood:
+        f: 0.05
+        p: 0.6
+        i: 0.01
+        d: 6.0
+        izone: 2.0
+        acceleration: 48000
+        cruise_velocity: 96000
+
+  # ------ Climber ------
+
+  opn_climber:
+    device_number: 11
+    inverted: true
+    feedback_device: internal_encoder
+    read_position: true
+    read_velocity: true
+    position_scalar: 0.0005178
+    velocity_scalar: 0.0005178
+    forward_limit_switch_enabled: false
+    reverse_limit_switch_enabled: false
+    forward_limit_switch_normally_closed: false
+    reverse_limit_switch_normally_closed: false
+    current_limit_enabled: false
+    continuous_current_limit_amps: 40
+    peak_current_limit_amps: 50
+    peak_current_duration_milliseconds: 100
+    profiles:
+      # Max speed: 22,000
+      pr_deploy:
+        f: 0.05
+        p: 0.1
+        i: 0.0
+        d: 0.0
+        acceleration: 50000
+        cruise_velocity: 25000
+      pr_climb:
+        f: 1.0
+        p: 0.35
+        i: 0.0
+        d: 0.0
+        acceleration: 25000
+        cruise_velocity: 25000
+
+absolute_encoder_talon:
+
+  opn_drivetrain_front_right_angle:
+    talon: opn_drivetrain_front_right_angle_motor
+    absolute_position_input: ipv_drivetrain_front_right_angle
+
+  opn_drivetrain_front_left_angle:
+    talon: opn_drivetrain_front_left_angle_motor
+    absolute_position_input: ipv_drivetrain_front_left_angle
+
+  opn_drivetrain_back_left_angle:
+    talon: opn_drivetrain_back_left_angle_motor
+    absolute_position_input: ipv_drivetrain_back_left_angle
+
+  opn_drivetrain_back_right_angle:
+    talon: opn_drivetrain_back_right_angle_motor
+    absolute_position_input: ipv_drivetrain_back_right_angle
+
+motor_group:
+
+  opn_flywheel:
+    master: opn_flywheel_primary
+    followers: [ opn_flywheel_follower ]
+
+servo:
+
+roborio_relay:
+  opn_relay_leds:
+    device_number: 0
